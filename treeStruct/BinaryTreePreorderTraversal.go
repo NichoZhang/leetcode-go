@@ -30,19 +30,25 @@ func preorderTraversal(root *TreeNode) []int {
 		return []int{}
 	}
 
+	// 根节点数据初始化
+	// 计数栈初始化
 	nodes, stack := []int{}, []*TreeNode{root}
 
 	for len(stack) > 0 {
 
+		// 如果根节点存在
 		if root != nil {
+			// 记录根节点数据
 			nodes = append(nodes, root.Val)
 
+			// 如果右子树存在，将右子树压入栈
 			if root.Right != nil {
 				stack = append(stack, root.Right)
 			}
 
+			// 将根替换位左子树
 			root = root.Left
-		} else {
+		} else { // 如果根节点不存在,从栈顶取出最后压入的树进行遍历
 			root = stack[len(stack)-1]
 			if len(stack) > 0 {
 				stack = stack[:len(stack)-1]
