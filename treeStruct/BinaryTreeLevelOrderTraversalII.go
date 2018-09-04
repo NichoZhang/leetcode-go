@@ -1,26 +1,24 @@
 package main
 
 /**
-* https://leetcode.com/problems/binary-tree-level-order-traversal/description/
-*
-* Example :
+* https://leetcode.com/problems/binary-tree-level-order-traversal-ii/description/
+* For example:
 * Given binary tree [3,9,20,null,null,15,7],
 *     3
 *    / \
 *   9  20
 *     /  \
 *    15   7
-* return its level order traversal as:
+* return its bottom-up level order traversal as:
 * [
-*   [3],
+*   [15,7],
 *   [9,20],
-*   [15,7]
+*   [3]
 * ]
 *
 * 34 / 34 test cases passed.
-* Runtime: 4 ms
-* Beats 100%
-* https://leetcode.com/submissions/detail/173475146/
+* Runtime:4ms
+* https://leetcode.com/submissions/detail/173477677/
 **/
 
 // TreeNode struct
@@ -30,7 +28,7 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-func levelOrder(root *TreeNode) [][]int {
+func levelOrderBottom(root *TreeNode) [][]int {
 	if root == nil {
 		return nil
 	}
@@ -50,6 +48,11 @@ func levelOrder(root *TreeNode) [][]int {
 		}
 		stack = stack[lenS:]
 		ret = append(ret, list)
+	}
+
+	lenR := len(ret)
+	for left, right := 0, lenR-1; left < right; left, right = left+1, right-1 {
+		ret[left], ret[right] = ret[right], ret[left]
 	}
 	return ret
 }
